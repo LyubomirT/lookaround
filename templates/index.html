@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image to 3D Panorama</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Image to 3D Panorama</h1>
+        <p>Upload an image of any size and create a 3D panorama of it.</p>
+        <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Select an image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+    <script>
+        // Validate the file size and type before uploading
+        $(document).ready(function() {
+            $('#upload-form').submit(function(e) {
+                var file = $('#image')[0].files[0];
+                var maxSize = 10 * 1024 * 1024; // 10 MB
+                var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (file.size > maxSize) {
+                    alert('The file is too large. Please select a file smaller than 10 MB.');
+                    e.preventDefault();
+                }
+                if (!allowedTypes.includes(file.type)) {
+                    alert('The file type is not supported. Please select a JPEG, PNG, or GIF image.');
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
