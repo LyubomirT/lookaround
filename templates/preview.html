@@ -14,7 +14,7 @@
         <button id="create-panorama" class="btn btn-success">Create 3D Panorama</button>
         <div id="panorama-container" style="display: none;">
             <p>Here is your 3D panorama. You can use your mouse to rotate and zoom in/out.</p>
-            <div id="panorama" style="width: 800px; height: 600px;"></div>
+            <div id="panorama-wrapper" style="width: 800px; height: 600px;"></div>
             <button id="fullscreen" class="btn btn-info">Fullscreen</button>
         </div>
     </div>
@@ -38,7 +38,8 @@
                 var camera = new THREE.PerspectiveCamera(75, 800 / 600, 0.1, 1000);
                 var renderer = new THREE.WebGLRenderer();
                 renderer.setSize(800, 600);
-                document.getElementById('panorama').appendChild(renderer.domElement);
+                var panoramaWrapper = document.getElementById('panorama-wrapper');
+                panoramaWrapper.appendChild(renderer.domElement);
 
                 // Create a sphere geometry and a texture from the image
                 var geometry = new THREE.SphereGeometry(500, 60, 40);
@@ -61,6 +62,14 @@
                 camera.position.set(0, 0, 0);
                 camera.lookAt(scene.position);
 
+                // Function to handle window resize
+                function onWindowResize() {
+                    camera.aspect = panoramaWrapper.offsetWidth / panoramaWrapper.offsetHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(panoramaWrapper.offsetWidth, panoramaWrapper.offsetHeight);
+                }
+                window.addEventListener('resize', onWindowResize);
+
                 // Render the scene
                 var animate = function() {
                     requestAnimationFrame(animate);
@@ -72,7 +81,7 @@
 
             // Toggle the fullscreen mode
             $('#fullscreen').click(function() {
-                var element = $('#panorama')[0];
+                var element = $('#panorama-wrapper')[0];
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
                 } else if (element.mozRequestFullScreen) {
