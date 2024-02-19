@@ -192,6 +192,11 @@
                 controls.minDistance = 100;
                 controls.maxDistance = 900;
 
+                // Set the camera speed
+                var cameraSpeed = parseFloat($('#camera-speed').val());
+                controls.rotateSpeed = cameraSpeed;
+                controls.zoomSpeed = cameraSpeed;
+
                 // Set the camera position and look at the center
                 camera.position.set(0, 0, 0);
                 camera.lookAt(scene.position);
