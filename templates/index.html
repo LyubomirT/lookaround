@@ -98,6 +98,13 @@
                 <input type="file" id="image" name="image" accept="image/*" required>
                 <button type="submit" class="btn-primary">Upload</button>
             </form>
+            <hr>
+            <label for="quality-slider">Texture Quality:</label>
+            <input type="range" id="quality-slider" min="0" max="100" value="100">
+            <hr>
+            <label for="camera-speed">Camera Speed:</label>
+            <input type="number" id="camera-speed" value="1">
+            <hr>
         </div>
         <div class="main">
             {% if filename %}
@@ -157,14 +164,19 @@
                 var scene = new THREE.Scene();
                 var camera = new THREE.PerspectiveCamera(75, 800 / 600, 0.1, 1000);
                 var renderer = new THREE.WebGLRenderer();
+                // Totally Responsive Size  
                 renderer.setSize(800, 600);
                 var panoramaWrapper = document.getElementById('panorama-wrapper');
                 panoramaWrapper.appendChild(renderer.domElement);
 
-                // Create a sphere geometry and a texture from the image
+                // Create a sphere geometry
                 var geometry = new THREE.SphereGeometry(500, 60, 40);
                 geometry.scale(-1, 1, 1); // Invert the sphere
+                
+                // Create a texture from the image with quality settings
+                var quality = $('#quality-slider').val() / 100;
                 var texture = new THREE.TextureLoader().load(src);
+                texture.repeat.set(quality, quality);
                 var material = new THREE.MeshBasicMaterial({map: texture});
 
                 // Create a mesh from the geometry and the material
