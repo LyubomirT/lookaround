@@ -155,6 +155,9 @@
                 // Hide the button and show the panorama container
                 $('#panorama-container').show();
 
+                // Clear existing panorama
+                $('#panorama-wrapper').empty();
+
                 // Get the image source
                 var image = $('img')[0];
                 var src = image.src;
