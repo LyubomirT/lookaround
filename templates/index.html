@@ -119,35 +119,88 @@
             margin-top: 10px;
         }
 
-        input[type=range] {
-            width: 100%;
-            height: 50px;
-            margin-top: 10px;
-            -webkit-appearance: none; /* WebKit/Blink */
-            appearance: none;
-            background: #dedede;
-            border-radius: 25px;
-            outline: none;
-        }
+        .range-container {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}
 
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; /* WebKit/Blink */
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #0069d9;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+.range-container {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}
 
-        input[type=range]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: #0069d9;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+input[type=range] {
+    position: relative;
+    width: 100%; /* Account for handle width */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    z-index: 2; /* Place the fill behind the handle */
+}
+
+.range-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    /* It's a progress element, set the color with the background property */
+    width: 100%;
+    border-radius: 10px; /* Same as input's border-radius */
+    pointer-events: none;
+    z-index: 1; /* Place the fill behind the handle */
+}
+
+.range-fill::-webkit-progress-bar {
+    background-color: rgb(210, 210, 210);
+    border-radius: 10px; /* Rounded corners */
+}
+
+.range-fill::-webkit-progress-value {
+    background-color: #4caf50;
+    border-radius: 10px; /* Rounded corners */
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px; /* Handle width */
+    height: 60px; /* Handle height */
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer;
+    z-index: 5; /* Place the handle above the fill */
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 30px;
+    height: 60px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+input[type=range]::-ms-thumb {
+    width: 30px;
+    height: 60px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+
 
 
     </style>
@@ -163,7 +216,10 @@
             </form>
             <hr>
             <label for="quality-slider">Texture Quality:</label>
-            <input type="range" id="quality-slider" min="1" max="100" value="100">
+            <div class="range-container">
+                <input type="range" id="quality-slider" min="1" max="100" value="100">
+                <progress class="range-fill" value="100"></progress>
+            </div>            
             <hr>
             <label for="camera-speed">Camera Speed:</label>
             <input type="number" id="camera-speed" value="1">
@@ -197,6 +253,45 @@
     <script>
         // Validate the file size and type before uploading
         $(document).ready(function() {
+            $('#quality-slider').on('input', function() {
+                var value = $(this).val();
+                var percent = (value - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
+                console.log(percent);
+                /// Green to Red based on percentage
+                var colors = {
+                    1.0: { id: 1, color: "#4caf50" },
+                    0.75: { id: 0.75, color: "#8bc34a" },
+                    0.5: { id: 0.5, color: "#dcc139" },
+                    0.25: { id: 0.25, color: "#ffa43b" },
+                    0.0: { id: 0, color: "#fc2d2d" } // Change the red color here
+                }
+                // Sort keys in descending order
+                var keys = Object.keys(colors).sort((a, b) => parseFloat(b) - parseFloat(a));
+
+                // Iterate through sorted keys to find the appropriate color
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+                    var id = parseFloat(key);
+                    console.log(colors[key].id);
+                    if (percent >= id) {
+                        var color = colors[key].color;
+                        break;
+                    }
+                }
+
+
+                $(".range-fill").val(percent);
+                // Now we need to update the webkit progress value background color
+                // We need to edit the webkit progress value background color CSS rule of the stylesheet 0
+                var sheet = document.styleSheets[0];
+                var rules = sheet.cssRules || sheet.rules;
+                for (var i = 0; i < rules.length; i++) {
+                    if (rules[i].selectorText === ".range-fill::-webkit-progress-value") {
+                        rules[i].style.backgroundColor = color;
+                        break;
+                    }
+                }
+            });
             $('#formhacker').click(function(e) {
                 e.preventDefault();
                 // First we need to click the file input to trigger the file selection dialog
