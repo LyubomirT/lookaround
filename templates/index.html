@@ -347,7 +347,7 @@ input[type=range]::-ms-thumb {
                 // Create a texture from the image with quality settings
                 var quality = $('#quality-slider').val() / 100;
                 var texture = new THREE.TextureLoader().load(src);
-                texture.repeat.set(quality, quality);
+                renderer.setPixelRatio(window.devicePixelRatio * quality);
                 var material = new THREE.MeshBasicMaterial({map: texture});
 
                 // Create a mesh from the geometry and the material
