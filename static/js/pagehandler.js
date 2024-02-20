@@ -37,6 +37,20 @@
                         break;
                     }
                 }
+                // The same for Firefox
+                for (var i = 0; i < rules.length; i++) {
+                    if (rules[i].selectorText === ".range-fill::-moz-progress-bar") {
+                        rules[i].style.backgroundColor = color;
+                        break;
+                    }
+                }
+                // The same for IE
+                for (var i = 0; i < rules.length; i++) {
+                    if (rules[i].selectorText === ".range-fill::-ms-fill") {
+                        rules[i].style.backgroundColor = color;
+                        break;
+                    }
+                }
             });
             $('#formhacker').click(function(e) {
                 e.preventDefault();

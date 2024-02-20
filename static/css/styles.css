@@ -162,6 +162,16 @@ input[type=range] {
     border-radius: 10px; /* Rounded corners */
 }
 
+.range-fill::-moz-progress-bar {
+    background-color: #4caf50;
+    border-radius: 10px; /* Rounded corners */
+}
+
+.range-fill::-ms-fill {
+    background-color: #4caf50;
+    border-radius: 10px; /* Rounded corners */
+}
+
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
