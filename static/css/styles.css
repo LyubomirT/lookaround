@@ -204,3 +204,16 @@ input[type=range]::-ms-thumb {
 canvas {
     display: block;
 }
+
+.preview hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #b4b4b4;
+}
+
+#note-perf {
+    position: absolute;
+    bottom: 20px;
+    margin-right: 20px;
+}
