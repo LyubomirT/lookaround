@@ -57,7 +57,7 @@
             color: #777777;
         }
         input[type=file] {
-            display: block;
+            display: none;
             margin-bottom: 20px;
         }
         button {
@@ -112,7 +112,7 @@
             <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
                 <label for="image">Select an image:</label>
                 <input type="file" id="image" name="image" accept="image/*" required>
-                <button type="submit" class="btn-success">Upload</button>
+                <button type="submit" class="btn-success" id="formhacker">Upload</button>
             </form>
             <hr>
             <label for="quality-slider">Texture Quality:</label>
@@ -150,6 +150,16 @@
     <script>
         // Validate the file size and type before uploading
         $(document).ready(function() {
+            $('#formhacker').click(function(e) {
+                e.preventDefault();
+                // First we need to click the file input to trigger the file selection dialog
+                $('#image').click();
+                // Now we need to wait till the user selects a file
+                $('#image').on('change', function() {
+                    // Now we can submit the form
+                    $('#upload-form').submit();
+                });
+            });
             $('#upload-form').submit(function(e) {
                 var file = $('#image')[0].files[0];
                 var maxSize = 10 * 1024 * 1024; // 10 MB
