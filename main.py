@@ -22,7 +22,9 @@ def upload():
         if file:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
             return render_template('index.html', filename=filename)
 
 if __name__ == '__main__':
+    clean_folder(app.config['UPLOAD_FOLDER'], delete=False, ignore_gitkeep=True)
     app.run(debug=True, port=5000)
