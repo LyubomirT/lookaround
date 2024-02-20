@@ -8,6 +8,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
             width: 100%;
@@ -18,74 +19,89 @@
         .sidebar {
             width: 20%;
             height: 100%;
-            background-color: #f0f0f0;
+            background-color: #f7f7f7;
             overflow-y: auto;
-            padding: 10px;
+            padding: 20px;
         }
         .main {
             width: 60%;
             height: 100%;
-            background-color: #e0e0e0;
+            background-color: #ebebeb;
             overflow-y: auto;
-            padding: 10px;
+            padding: 20px;
+            position: relative;
         }
         .preview {
             width: 20%;
             height: 100%;
-            background-color: #d0d0d0;
+            background-color: #dedede;
             overflow-y: auto;
-            padding: 10px;
+            padding: 20px;
         }
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             text-align: center;
+            margin-bottom: 20px;
+            color: #333333;
         }
         p {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #555555;
         }
         label {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: normal;
+            color: #777777;
         }
         input[type=file] {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         button {
             display: block;
             width: 100%;
-            height: 40px;
+            height: 50px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
         }
-        .btn-primary {
-            background-color: #007bff;
-        }
-        .btn-primary:hover {
+        button:hover {
             background-color: #0069d9;
         }
-        .btn-success {
-            background-color: #28a745;
+        button:focus {
+            outline: none;
         }
-        .btn-success:hover {
-            background-color: #218838;
+        .btn-success {
+            background-color: #4caf50;
         }
         .btn-info {
-            background-color: #17a2b8;
+            background-color: #2196f3;
+        }
+        .btn-success:hover {
+            background-color: #388e3c;
         }
         .btn-info:hover {
-            background-color: #138496;
+            background-color: #1976d2;
         }
         img {
             max-width: 100%;
             height: auto;
         }
+        #panorama-container {
+            display: none;
+        }
+        #fullscreen {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -96,7 +112,7 @@
             <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
                 <label for="image">Select an image:</label>
                 <input type="file" id="image" name="image" accept="image/*" required>
-                <button type="submit" class="btn-primary">Upload</button>
+                <button type="submit" class="btn-success">Upload</button>
             </form>
             <hr>
             <label for="quality-slider">Texture Quality:</label>
@@ -111,7 +127,6 @@
             <div id="panorama-container">
                 <p>Here is your 3D panorama. You can use your mouse to rotate and zoom in/out.</p>
                 <div id="panorama-wrapper" style="width: 100%; height: 80%;"></div>
-                <button id="fullscreen" class="btn-info">Fullscreen</button>
             </div>
             {% else %}
             <p>No image uploaded yet.</p>
@@ -123,6 +138,7 @@
             <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded image">
             <p>Click the button below to create a 3D panorama of it:</p>
             <button id="create-panorama" class="btn-success">Create 3D Panorama</button>
+            <button id="fullscreen" class="btn-info">Fullscreen</button>
             {% else %}
             <p>No image preview available.</p>
             {% endif %}
@@ -154,6 +170,7 @@
             $('#create-panorama').click(function() {
                 // Hide the button and show the panorama container
                 $('#panorama-container').show();
+                $('#fullscreen').show();
 
                 // Clear existing panorama
                 $('#panorama-wrapper').empty();
