@@ -245,17 +245,32 @@
                 animate();
             });
 
+            // Function to handle resizing of the renderer upon exiting fullscreen
+            function onFullscreenExit() {
+                if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) return;
+                var panoramaWrapper = document.getElementById('panorama-wrapper');
+
+                panoramaWrapper.firstChild.remove();
+
+                // Click the button again to recreate the panorama
+                $('#create-panorama').click();
+            }
+
             // Toggle the fullscreen mode
             $('#fullscreen').click(function() {
                 var element = $('#panorama-wrapper')[0];
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
+                    document.addEventListener("fullscreenchange", onFullscreenExit, false);
                 } else if (element.mozRequestFullScreen) {
                     element.mozRequestFullScreen();
+                    document.addEventListener("mozfullscreenchange", onFullscreenExit, false);
                 } else if (element.webkitRequestFullscreen) {
                     element.webkitRequestFullscreen();
+                    document.addEventListener("webkitfullscreenchange", onFullscreenExit, false);
                 } else if (element.msRequestFullscreen) {
                     element.msRequestFullscreen();
+                    document.addEventListener("MSFullscreenChange", onFullscreenExit, false);
                 }
             });
         });
