@@ -25,6 +25,21 @@
             <input type="number" id="camera-speed" value="1">
             <p class="hint">Negative values will invert camera controls.</p>
             <hr>
+            <label>Camera Controls:</label>
+            <br>
+            <br>
+            <label for="enable-zoom">Enable Zoom</label>
+            <input type="checkbox" id="enable-zoom" checked>
+            <br>
+            <label for="enable-rotate">Enable Rotate</label>
+            <input type="checkbox" id="enable-rotate" checked>
+            <br>
+            <label for="enable-pan">Enable Movement</label>
+            <input type="checkbox" id="enable-pan" checked>
+            <br>
+            <label for="enable-damping">Enable Smoothing</label>
+            <input type="checkbox" id="enable-damping" checked>
+            <hr>
         </div>
         <div class="main">
             {% if filename %}

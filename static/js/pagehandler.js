@@ -103,6 +103,8 @@
                 var controls = new THREE.OrbitControls(camera, renderer.domElement);
                 controls.enableZoom = true;
                 controls.enablePan = false;
+                controls.enableDamping = false;
+                controls.enableRotate = true;
                 controls.minDistance = 100;
                 controls.maxDistance = 900;
 
