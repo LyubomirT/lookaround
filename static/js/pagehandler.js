@@ -3,7 +3,6 @@
             $('#quality-slider').on('input', function() {
                 var value = $(this).val();
                 var percent = (value - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
-                console.log(percent);
                 /// Green to Red based on percentage
                 var colors = {
                     1.0: { id: 1, color: "#4caf50" },
@@ -19,7 +18,6 @@
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
                     var id = parseFloat(key);
-                    console.log(colors[key].id);
                     if (percent >= id) {
                         var color = colors[key].color;
                         break;
