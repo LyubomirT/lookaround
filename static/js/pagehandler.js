@@ -1,5 +1,6 @@
         // Validate the file size and type before uploading
         $(document).ready(function() {
+            var rendererStopped = false;
             $('#quality-slider').on('input', function() {
                 var value = $(this).val();
                 var percent = (value - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
@@ -66,6 +67,7 @@
         $(document).ready(function() {
             $('#create-panorama').click(function() {
                 // Hide the button and show the panorama container
+                rendererStopped = false;
                 $('#panorama-container').show();
                 $('#fullscreen').show();
 
@@ -132,6 +134,7 @@
 
                 // Render the scene
                 var animate = function() {
+                    if (rendererStopped) return;
                     requestAnimationFrame(animate);
                     controls.update();
                     renderer.render(scene, camera);
@@ -143,7 +146,7 @@
             function onFullscreenExit() {
                 if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) return;
                 var panoramaWrapper = document.getElementById('panorama-wrapper');
-
+                rendererStopped = true;
                 panoramaWrapper.firstChild.remove();
 
                 // Click the button again to recreate the panorama
