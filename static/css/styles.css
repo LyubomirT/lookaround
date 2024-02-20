@@ -200,3 +200,7 @@ input[type=range]::-ms-thumb {
     color: #777777;
     margin-top: 10px;
 }
+
+canvas {
+    display: block;
+}

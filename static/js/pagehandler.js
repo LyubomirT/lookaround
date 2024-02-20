@@ -85,6 +85,9 @@
                 var panoramaWrapper = document.getElementById('panorama-wrapper');
                 panoramaWrapper.appendChild(renderer.domElement);
 
+                // Clear the WebGL context before proceeding
+                renderer.getContext().clear(16640);
+
                 // Create a sphere geometry
                 var geometry = new THREE.SphereGeometry(500, 60, 40);
                 geometry.scale(-1, 1, 1); // Invert the sphere
@@ -101,10 +104,10 @@
 
                 // Create an orbit control to enable mouse interaction
                 var controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.enableZoom = true;
-                controls.enablePan = false;
-                controls.enableDamping = false;
-                controls.enableRotate = true;
+                controls.enableZoom = $('#enable-zoom').is(':checked');
+                controls.enablePan = $('#enable-pan').is(':checked');
+                controls.enableDamping = $('#enable-damping').is(':checked');
+                controls.enableRotate = $('#enable-rotate').is(':checked');
                 controls.minDistance = 100;
                 controls.maxDistance = 900;
 
@@ -115,7 +118,9 @@
 
                 // Set the camera position and look at the center
                 camera.position.set(0, 0, 0);
-                camera.lookAt(scene.position);
+                // camera.lookAt(scene.position);
+                // look in front of the camera instead of the bottom-front
+                controls.target.set(0, 0, -0.2);
 
                 // Function to handle window resize
                 function onWindowResize() {
