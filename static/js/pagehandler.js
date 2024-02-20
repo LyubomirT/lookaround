@@ -1,6 +1,5 @@
         // Validate the file size and type before uploading
         $(document).ready(function() {
-            var rendererStopped = false;
             $('#quality-slider').on('input', function() {
                 var value = $(this).val();
                 var percent = (value - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
@@ -52,6 +51,7 @@
                     }
                 }
             });
+            $('#quality-slider').trigger('input');
             $('#formhacker').click(function(e) {
                 e.preventDefault();
                 // First we need to click the file input to trigger the file selection dialog
