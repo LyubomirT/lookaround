@@ -5,7 +5,7 @@ Lookaround is a website-based neat tool to help you see your image in a 360-degr
 ## Get started
 
 > [!NOTE]
-> No installation needed, the website is already up and running on Heroku. Check it out by visiting [The Website](https://lookaround-d1a8a825efef.herokuapp.com/upload).
+> No installation needed, the website is already up and running on Heroku. Check it out by visiting [The Website](https://lookaround-d1a8a825efef.herokuapp.com).
 
 1. Visit the website by clicking the link above.
 
