@@ -32,6 +32,9 @@ Quite simply, actually! The website uses the [Three.js](https://threejs.org/) li
 
 For the backend, the website uses the [Flask](https://flask.palletsprojects.com/en/3.0.x/) framework to handle the image upload and the file storage. The image is uploaded to the server, and then the server sends the image to the client, where it is rendered using Three.js.
 
+> [!CAUTION]
+> The website DOES store the images on the server, but they are deleted after an hour. The website also does not store any personal information about the users, and it does not use cookies or any other tracking technologies.
+
 ## The interface
 
 The website has a modern stylized interface with a horizontal-ish layout and a eye-friendly color scheme. Everything is divided into sections so getting into the flow of using the web tool is incredibly easy. The left sidebar contains the settings and the upload button, and the right sidebar contains the controls for the 3D panorama.
@@ -49,14 +52,20 @@ The website has been tested on a couple of devices and it runs decently, but oth
 - **Laptop High 1**: Intel Core i7-13700H, 16GB RAM, NVIDIA GeForce RTX 4060 8GB Laptop GPU, 512 GB SSD, Windows 11, 2K 240Hz display
 - **Desktop Mid 1**: Intel Core i5-i5-7500, 16GB RAM, NVIDIA GeForce GTX 1050 Ti 4GB, 256GB SSD, Windows 10, 2K 165Hz display
 
-| Device | Browser | Performance |
-| ------ | ------- | ----------- |
-| Laptop High 1 | Chrome | Very High, but decreases slightly when recreating the panorama a few times |
-| Laptop High 1 | Firefox | Exceptionally High |
-| Laptop High 1 | Edge | Exceptionally High |
-| Desktop Mid 1 | Chrome | Medium-High, but decreases slightly when recreating the panorama a few times |
-| Desktop Mid 1 | Firefox | High |
-| Desktop Mid 1 | Edge | High |
+| Device | Browser | Performance | Highest Texture Quality |
+| ------ | ------- | ----------- | ------ |
+| Laptop High 1 | Chrome | Very High, but decreases slightly when recreating the panorama a few times | Maximum |
+| Laptop High 1 | Firefox | Exceptionally High | Maximum |
+| Laptop High 1 | Edge | Exceptionally High | Maximum |
+| Desktop Mid 1 | Chrome | Medium-High, but decreases slightly when recreating the panorama a few times | Maximum |
+| Desktop Mid 1 | Firefox | High | Maximum |
+| Desktop Mid 1 | Edge | High | Maximum |
+
+> [!NOTE]
+> The browser performance is based on the smoothness of the controls and the rendering speed. The texture quality is based on the quality of the image projected onto the sphere.
+
+> [!WARNING]
+> The browser version can also have a significant impact on the performance of the WebGL (Three.js) rendering. For example, the performance on the latest version of Chrome is significantly better than on the previous versions.
 
 ## Known issues
 
