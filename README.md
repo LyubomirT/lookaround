@@ -53,7 +53,7 @@ The website has been tested on a couple of devices and it runs decently, but oth
 - **Desktop Mid 1**: Intel Core i5-i5-7500, 16GB RAM, NVIDIA GeForce GTX 1050 Ti 4GB, 256GB SSD, Windows 10, 2K 165Hz display
 
 | Device | Browser | Performance | Highest Texture Quality |
-| ------ | ------- | ----------- | ------ |
+| ------- | ------ | ----------- | ------ |
 | Laptop High 1 | Chrome | Very High, but decreases slightly when recreating the panorama a few times | Maximum |
 | Laptop High 1 | Firefox | Exceptionally High | Maximum |
 | Laptop High 1 | Edge | Exceptionally High | Maximum |
