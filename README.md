@@ -117,3 +117,9 @@ If you have any questions, suggestions, or anything else you want to share, you 
 - My Discord server: [The Orange Squad](https://discord.gg/4nVVhh29E3)
 
 I'm always open to feedback and suggestions, so don't hesitate to reach out!
+
+## Thanks to our contributors!
+
+<!-- Contrib.rocks barely works, but I should try -->
+
+![Contributors](https://contrib.rocks/image?repo=lyubomirt/lookaround)
