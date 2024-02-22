@@ -12,7 +12,7 @@
             <h1>Image to 3D Panorama</h1>
             <p>Upload an image of any size and create a 3D panorama of it.</p>
             <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" accept="image/*" required>
+                <input type="file" id="image" name="image" accept="image/*" required />
                 <button type="submit" class="btn-success" id="formhacker">Upload</button>
             </form>
             <hr>
@@ -26,20 +26,58 @@
             <input type="number" id="camera-speed" value="1">
             <p class="hint">Negative values will invert camera controls.</p>
             <hr>
-            <label>Camera Controls:</label>
+            <label> <b>Camera Controls: </b></label>
             <br>
             <br>
+            <!--
             <label for="enable-zoom">Enable Zoom</label>
             <input type="checkbox" id="enable-zoom" checked>
+            -->
+            <h3>
+                <label for="enable-zoom" style="padding-right: 35px;"><b>Enable Zoom </b></label>
+                <label class="switch">
+                    <input type="checkbox" id="enable-zoom" checked>
+                    <span class="slider round"></span>
+                </label>
+            </h3>
             <br>
+            <!--
             <label for="enable-rotate">Enable Rotate</label>
             <input type="checkbox" id="enable-rotate" checked>
+            -->
+            <h3>
+                <label for="enable-rotate" style="padding-right: 31px;"><b>Enable Rotate </b></label>
+                <label class="switch">
+                    <input type="checkbox" id="enable-rotate" checked>
+                    <span class="slider round"></span>
+                </label>
+            </h3>
             <br>
+            <!--
             <label for="enable-pan">Enable Movement</label>
             <input type="checkbox" id="enable-pan" checked>
+            -->
+            <h3>
+                <label for="enable-pan"><b>Enable Movement </b></label>
+                <label class="switch">
+                    <input type="checkbox" id="enable-pan" checked>
+                    <span class="slider round"></span>
+                </label>
+            </h3>
+
             <br>
+            <!--
             <label for="enable-damping">Enable Smoothing</label>
             <input type="checkbox" id="enable-damping" checked>
+            -->
+            <h3>
+                <label for="enable-damping"><b>Enable Smoothing</b></label>
+                <label class="switch">
+                    <input type="checkbox" id="enable-damping" checked>
+                    <span class="slider round"></span>
+                </label>
+            </h3>
+
             <hr>
         </div>
         <div class="main">
