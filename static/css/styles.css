@@ -294,3 +294,9 @@ canvas {
   .slider.round:before {
     border-radius: 50%;
   }
+
+  a {
+    text-decoration: none;
+    color: #2e2e2e;
+    font-weight: bold;
+  }
