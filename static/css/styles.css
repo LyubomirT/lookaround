@@ -273,11 +273,11 @@ canvas {
   }
   
   input:checked + .slider {
-    background-color: #4caf50;
+    background-color: #5f81c3;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #4caf50;
+    box-shadow: 0 0 1px #5f81c3
   }
   
   input:checked + .slider:before {
