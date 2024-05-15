@@ -120,5 +120,11 @@
     <script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
     <script src="{{ url_for('static', filename='js/pagehandler.js') }}"></script>
     </script>
+    
+    <!-- Show the error message if there is one from the validation -->
+    <script>
+        var error_message = '{{ error_message }}';
+        if(error_message) alert('{{ error_message }}');
+    </script>
 </body>
 </html>
