@@ -5,7 +5,7 @@ from cleaner import clean_folder
 import asyncio
 import schedule
 from pathlib import Path
-from isValidImage import is_valid_image # Import the function to check if the file is a valid image
+from multiform_validator import isValidImage # Import the function to check if the file is a valid image
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -43,7 +43,7 @@ def upload():
                 file_buffer = f.read(4)
 
             # Check if the file is an valid image
-            if not is_valid_image(file_buffer):
+            if not isValidImage(file_buffer):
                 os.remove(retrieved_file)  # Delete the file if it's not a valid image
                 return render_template('index.html', error_message="Invalid image file! Please select a JPEG, PNG, or GIF image.")
             

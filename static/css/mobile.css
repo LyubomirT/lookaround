@@ -1,0 +1,24 @@
+.own-container-mobile {
+  display: flex;
+}
+@media (min-width: 1024px) {
+  .own-container-mobile {
+    display: none;
+  }
+}
+.own-container-mobile .div-drawers {
+  padding: 10px;
+}
+.own-container-mobile .div-drawers .button-open-right {
+  cursor: pointer;
+}
+.own-container-mobile .div-drawers .button-open-left {
+  cursor: pointer;
+}
+.own-container-mobile .div-right-drawer .drawer-right-example .preview {
+  width: 100%;
+}
+.own-container-mobile .main {
+  width: 100%;
+  height: 100vh;
+}/*# sourceMappingURL=mobile.css.map */
