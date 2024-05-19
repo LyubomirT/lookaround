@@ -1,19 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Free 3D Panorama Creator - Lookaround</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flowbite.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <meta name='viewport' content='width=device-width'/>
+    <!-- Flowbite CSS -->
+    <meta name='viewport' content='width=device-width' />
     <!-- SEO -->
-    <meta name="description" content="Quickly create a 3D panorama from any image without worrying much about the technical details.">
+    <meta name="description"
+        content="Quickly create a 3D panorama from any image without worrying much about the technical details.">
     <meta name="keywords" content="3D, panorama, image, 360, lookaround, look, around">
     <meta name="author" content="Lyubomir Ternavskiy">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
 </head>
+
 <body>
-    <div class="container">
+    <div class="own-container-mobile">
+
+        <div class="div-drawers div-left-drawer">
+            <!-- drawer init and toggle -->
+            <div class="button-open-left">
+                <img data-drawer-target="drawer-left-example" data-drawer-show="drawer-left-example"
+                    data-drawer-placement="left" aria-controls="drawer-left-example"
+                    src="{{ url_for('static', filename='assets/menu-svgrepo-com.svg') }}" alt="Menu"
+                    style="width: 30px; height: 30px;">
+            </div>
+
+            <!-- drawer component -->
+            <div id="drawer-left-example"
+                class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800"
+                tabindex="-1" aria-labelledby="drawer-left-label">
+                <h5 id="drawer-left-label"
+                    class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg
+                        class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>Image to 3D Panorama</h5>
+                <button type="button" data-drawer-hide="drawer-left-example" aria-controls="drawer-left-example"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close menu</span>
+                </button>
+                <p>
+                    Upload an image of any size and create a 3D panorama of it.
+                </p>
+                <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" id="image" name="image" accept="image/*" required />
+                    <button type="submit" class="btn-success" id="formhacker">Upload</button>
+                </form>
+                <hr>
+                <label for="quality-slider">Texture Quality:</label>
+                <div class="range-container">
+                    <input type="range" id="quality-slider" min="1" max="100" value="50">
+                    <progress class="range-fill" value="50"></progress>
+                </div>
+                <hr>
+                <label for="camera-speed">Camera Speed:</label>
+                <input type="number" id="camera-speed" value="1">
+                <p class="hint">Negative values will invert camera controls.</p>
+                <hr>
+                <label> <b>Camera Controls: </b></label>
+                <br>
+                <br>
+                <!--
+                <label for="enable-zoom">Enable Zoom</label>
+                <input type="checkbox" id="enable-zoom" checked>
+                -->
+                <h3>
+                    <label for="enable-zoom" style="padding-right: 35px;"><b>Enable Zoom </b></label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-zoom" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </h3>
+                <br>
+                <!--
+                <label for="enable-rotate">Enable Rotate</label>
+                <input type="checkbox" id="enable-rotate" checked>
+                -->
+                <h3>
+                    <label for="enable-rotate" style="padding-right: 31px;"><b>Enable Rotate </b></label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-rotate" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </h3>
+                <br>
+                <!--
+                <label for="enable-pan">Enable Movement</label>
+                <input type="checkbox" id="enable-pan" checked>
+                -->
+                <h3>
+                    <label for="enable-pan"><b>Enable Movement </b></label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-pan" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </h3>
+
+                <br>
+                <!--
+                <label for="enable-damping">Enable Smoothing</label>
+                <input type="checkbox" id="enable-damping" checked>
+                -->
+                <h3>
+                    <label for="enable-damping"><b>Enable Smoothing</b></label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-damping" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </h3>
+
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="main">
+            {% if filename %}
+            <div id="panorama-container">
+                <p>Here is your 3D panorama. You can use your mouse to rotate and zoom in/out.</p>
+                <div id="panorama-wrapper" style="width: 100%; height: 80%;"></div>
+            </div>
+            {% else %}
+            <p>No image uploaded yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="div-drawers div-right-drawer">
+            <!-- drawer init and toggle -->
+            <div class="button-open-right">
+                <img data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example"
+                    data-drawer-placement="right" aria-controls="drawer-right-example"
+                    src="{{ url_for('static', filename='assets/menu-svgrepo-com.svg') }}" alt="Menu"
+                    style="width: 30px; height: 30px;">
+            </div>
+
+            <!-- drawer component -->
+            <div id="drawer-right-example"
+                class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800"
+                tabindex="-1" aria-labelledby="drawer-right-label">
+                <h5 id="drawer-right-label"
+                    class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg
+                        class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>Preview</h5>
+                <button type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close menu</span>
+                </button>
+                <div class="preview">
+                    {% if filename %}
+                    <p>Here is your uploaded image:</p>
+                    <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded image">
+                    <p>Click the button below to create a 3D panorama of it:</p>
+                    <button id="create-panorama" class="btn-success">Create 3D Panorama</button>
+                    <button id="fullscreen" class="btn-info">Fullscreen</button>
+                    {% else %}
+                    <p>No image preview available.</p>
+                    {% endif %}
+                    <div id="note-perf" class="note">
+                        <hr>
+                        <p class="hint">Rendered panoramas have the best performance on Firefox, Chrome, and Edge. If
+                            you still
+                            see lag or other issues, consider reducing render quality.</p>
+                        <p class="hint">Take a look at our <a href="https://lyubomirt.github.io/lookaround/"
+                                target="_blank">documentation</a> for more information or to contact us.</p>
+                        <hr>
+                        <p class="hint">This project is open-source. You can find the source code on <a
+                                href="https://github.com/LyubomirT/lookaround" target="_blank">GitHub</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="own-container-desktop">
         <div class="sidebar">
             <h1>Image to 3D Panorama</h1>
             <p>Upload an image of any size and create a 3D panorama of it.</p>
@@ -26,7 +205,7 @@
             <div class="range-container">
                 <input type="range" id="quality-slider" min="1" max="100" value="50">
                 <progress class="range-fill" value="50"></progress>
-            </div>            
+            </div>
             <hr>
             <label for="camera-speed">Camera Speed:</label>
             <input type="number" id="camera-speed" value="1">
@@ -107,11 +286,14 @@
             <p>No image preview available.</p>
             {% endif %}
             <div id="note-perf" class="note">
-            <hr>
-            <p class="hint">Rendered panoramas have the best performance on Firefox, Chrome, and Edge. If you still see lag or other issues, consider reducing render quality.</p>
-            <p class="hint">Take a look at our <a href="https://lyubomirt.github.io/lookaround/" target="_blank">documentation</a> for more information or to contact us.</p>
-            <hr>
-            <p class="hint">This project is open-source. You can find the source code on <a href="https://github.com/LyubomirT/lookaround" target="_blank">GitHub</a>.</p>
+                <hr>
+                <p class="hint">Rendered panoramas have the best performance on Firefox, Chrome, and Edge. If you still
+                    see lag or other issues, consider reducing render quality.</p>
+                <p class="hint">Take a look at our <a href="https://lyubomirt.github.io/lookaround/"
+                        target="_blank">documentation</a> for more information or to contact us.</p>
+                <hr>
+                <p class="hint">This project is open-source. You can find the source code on <a
+                        href="https://github.com/LyubomirT/lookaround" target="_blank">GitHub</a>.</p>
             </div>
         </div>
     </div>
@@ -119,12 +301,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
     <script src="{{ url_for('static', filename='js/pagehandler.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     </script>
-    
+
     <!-- Show the error message if there is one from the validation -->
     <script>
         var error_message = '{{ error_message }}';
-        if(error_message) alert('{{ error_message }}');
+        if (error_message) alert('{{ error_message }}');
     </script>
 </body>
+
 </html>

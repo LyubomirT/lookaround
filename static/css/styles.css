@@ -4,11 +4,14 @@
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.container {
+.own-container-desktop {
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: row;
+    @media (max-width: 1024px) {
+        display: none;
+    }
 }
 .sidebar {
     width: 20%;
@@ -32,6 +35,13 @@
     overflow-y: auto;
     padding: 20px;
 }
+
+@media (max-width: 1024px) {
+    .preview {
+        width: 100%;
+    }
+}
+
 h1 {
     font-size: 28px;
     font-weight: bold;
@@ -228,9 +238,6 @@ canvas {
     bottom: 20px;
     margin-right: 20px;
 }
-
-
-
 
 .switch {
     position: relative;
