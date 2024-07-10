@@ -51,7 +51,7 @@ def upload():
     
 @app.route('/favicon.ico')
 def favicon():
-    return send_file('branding/LookaroundFixed.ico', mimetype='image/vnd.microsoft.icon')
+    return send_file(os.path.join(app.root_path, 'static', 'LookaroundFixed.ico'), mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     schedule_cleaning()
