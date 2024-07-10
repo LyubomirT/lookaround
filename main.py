@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 from werkzeug.utils import secure_filename
 import os
 from cleaner import clean_folder
@@ -48,6 +48,10 @@ def upload():
                 return render_template('index.html', error_message="Invalid image file! Please select a JPEG, PNG, or GIF image.")
             
             return render_template('index.html', filename=filename)
+    
+@app.route('/favicon.ico')
+def favicon():
+    return send_file('branding/LookaroundFixed.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     schedule_cleaning()
